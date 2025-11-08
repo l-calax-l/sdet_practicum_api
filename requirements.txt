@@ -1,0 +1,8 @@
+pytest
+requests
+pydantic
+allure-pytest
+pytest-xdist
+python-dotenv
+black
+flake8
