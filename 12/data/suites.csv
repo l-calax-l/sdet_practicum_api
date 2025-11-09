@@ -1,6 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","3","Позитивный тест: создание и проверка сущности","tests","Sun Nov 09 16:56:10 UTC 2025","passed","Sun Nov 09 16:56:10 UTC 2025","TestEntityApi","test_api","",""
-"","4","Позитивный тест: удаление и проверка удаления сущности","tests","Sun Nov 09 16:56:10 UTC 2025","passed","Sun Nov 09 16:56:10 UTC 2025","TestEntityApi","test_api","",""
-"","5","Позитивный тест: обновление и проверка сущности","tests","Sun Nov 09 16:56:10 UTC 2025","passed","Sun Nov 09 16:56:10 UTC 2025","TestEntityApi","test_api","",""
-"","3","Позитивный тест: фильтрация списка сущностей по параметру 'verified'","tests","Sun Nov 09 16:56:10 UTC 2025","passed","Sun Nov 09 16:56:10 UTC 2025","TestEntityApi","test_api","",""
-"","3","Позитивный тест: получение списка всех сущностей","tests","Sun Nov 09 16:56:10 UTC 2025","passed","Sun Nov 09 16:56:10 UTC 2025","TestEntityApi","test_api","",""
