@@ -2,6 +2,7 @@ import pytest
 import os
 from dotenv import load_dotenv
 from src.api_client import ApiClient
+from src.models import EntityRequest, AdditionRequest
 
 load_dotenv()
 
@@ -10,12 +11,11 @@ load_dotenv()
 def base_url():
     """
     Фикстура, которая читает и возвращает URL для API-сервиса
-    из BASE_URL.
     """
-    url = os.getenv("BASE_URL")
+    url = os.getenv("API_HOST")
     if not url:
-        pytest.fail("Переменная окружения BASE_URL не задана в .env файле")
-    return url
+        pytest.fail("Переменная окружения API_HOST не задана в .env файле")
+    return f"{url}/api"
 
 
 @pytest.fixture(scope="session")
@@ -25,3 +25,16 @@ def api_client(base_url):
     """
     client = ApiClient(base_url=base_url)
     return client
+
+
+@pytest.fixture
+def new_entity_payload() -> EntityRequest:
+    """Фикстура, генерирующая валидный payload для создания сущности."""
+    return EntityRequest(
+        title="Test Title",
+        verified=True,
+        important_numbers=[1, 2, 3],
+        addition=AdditionRequest(
+            additional_info="Test additional info", additional_number=42
+        ),
+    )
