@@ -2,14 +2,13 @@ name: Build API, Run Tests, and Publish Report
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   pull_request:
-    branches: [main, master]
+    branches: [main]
 
 jobs:
   run-tests:
-    runs_on: ubuntu-latest
-
+    runs-on: ubuntu-latest
     permissions:
       contents: write
 
@@ -24,7 +23,7 @@ jobs:
           path: api_project
 
       - name: Build and run API container
-        run: docker-compose -f api_project/docker-compose.yml up -d
+        run: docker compose -f api_project/docker-compose.yaml up -d
 
       - name: Wait for API to be ready
         run: echo "Waiting for 20 seconds for services to start..." && sleep 20
@@ -44,11 +43,11 @@ jobs:
 
       - name: Stop API container
         if: always()
-        run: docker-compose -f api_project/docker-compose.yml down
+        run: docker compose -f api_project/docker-compose.yaml down
 
       - name: Generate Allure report
         if: always()
-        uses: simple-elf/allure-report-action@v1.7
+        uses: simple-elf/allure-report-action@v1.13
         with:
           allure_results: allure-results
           allure_report: allure-report
