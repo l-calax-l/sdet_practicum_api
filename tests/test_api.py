@@ -94,14 +94,14 @@ class TestEntityApi:
             payload = EntityRequest(title="Сущность на удаление")
             create_response = api_client.create_entity(payload)
             assert (
-                    create_response.status_code == 200
+                create_response.status_code == 200
             ), "Предусловие не выполнено: не удалось создать сущность"
             entity_id = int(create_response.text)
 
         with allure.step("Отправка DELETE-запроса на /delete/{id}"):
             delete_response = api_client.delete_entity(entity_id)
             assert (
-                    delete_response.status_code == 204
+                delete_response.status_code == 204
             ), f"Ожидался статус-код 204 после удаления, но получен {delete_response.status_code}"
 
         with allure.step("Проверка, что сущность больше не доступна по GET"):
@@ -111,14 +111,14 @@ class TestEntityApi:
             # TODO: БАГ! После удаления сущности GET запрос возвращает 500 вместо 404
             # Временно проверяем любой код ошибки (4xx-5xx), маскируя проблему
             assert (
-                    get_response.status_code >= 400
+                get_response.status_code >= 400
             ), f"Ожидался код ошибки (4xx-5xx), но получен {get_response.status_code}"
 
             if get_response.status_code != 404:
                 allure.attach(
                     f"Обнаружен баг: GET после DELETE возвращает {get_response.status_code}. Response: {get_response.text}",
                     name="BUG: Wrong status code after deletion",
-                    attachment_type=allure.attachment_type.TEXT
+                    attachment_type=allure.attachment_type.TEXT,
                 )
 
     @allure.story("Получение списка сущностей")
