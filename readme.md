@@ -17,13 +17,17 @@
 ```
 .
 ├── .github/workflows/   # CI/CD (GitHub Actions)
-│   └── tests.yml
+│   └── ci.yml
+│
 ├── src/                 # Исходный код API-клиента и моделей
 │   ├── api_client.py    # Логика отправки запросов к API
 │   ├── endpoints.py     # Константы эндпоинтов
 │   └── models.py        # Pydantic-модели для данных
+│
 ├── tests/               # Тестовые сценарии
-│   └── test_api.py
+│   ├── test_api.py      # Файл с основными тестовыми сценариями
+│   └── test_data.py     # Модуль для генерации тестовых данных (payloads)
+│
 ├── .env.example         # Пример файла переменных окружения
 ├── .gitignore           # Файл для исключения мусорных файлов из Git
 ├── conftest.py          # Конфигурация Pytest и общие фикстуры
