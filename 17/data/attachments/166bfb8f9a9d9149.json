@@ -1,0 +1,14 @@
+{
+  "entity": [
+    {
+      "id": 5,
+      "title": "Verified Entity d83b4b5a",
+      "verified": true,
+      "addition": {
+        "id": 5,
+        "additional_info": "Дополнительные сведения",
+        "additional_number": 123
+      }
+    }
+  ]
+}
