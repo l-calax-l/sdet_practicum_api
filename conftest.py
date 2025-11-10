@@ -62,10 +62,16 @@ def created_entities_for_filter_test(api_client):
     unverified_payload = data_generator.unverified_entity()
 
     create_verified_res = api_client.create_entity(verified_payload)
+    assert (
+            create_verified_res.status_code == 200
+    ), "Не удалось создать 'verified' сущность для теста"
     verified_id = int(create_verified_res.text)
     entities_to_delete.append(verified_id)
 
     create_unverified_res = api_client.create_entity(unverified_payload)
+    assert (
+            create_unverified_res.status_code == 200
+    ), "Не удалось создать 'unverified' сущность для теста"
     unverified_id = int(create_unverified_res.text)
     entities_to_delete.append(unverified_id)
 
