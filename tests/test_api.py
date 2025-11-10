@@ -1,7 +1,7 @@
 import allure
 from src.api_client import ApiClient
 from src.models import EntityResponse, EntityListResponse
-from tests import test_data
+from helpers import data_generator
 
 
 @allure.epic("Entity Management")
@@ -50,7 +50,7 @@ class TestEntityApi:
         entity_id = created_entity["id"]
 
         with allure.step("Отправка PATCH-запроса на /patch/{id}"):
-            update_payload = test_data.updated_entity_payload()
+            update_payload = data_generator.updated_entity_payload()
             update_response = api_client.update_entity(entity_id, update_payload)
             assert (
                 update_response.status_code == 204

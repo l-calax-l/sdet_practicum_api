@@ -2,7 +2,7 @@ import pytest
 import os
 from dotenv import load_dotenv
 from src.api_client import ApiClient
-from tests import test_data
+from helpers import data_generator
 
 load_dotenv()
 
@@ -35,7 +35,7 @@ def created_entity(api_client: ApiClient):
     2. Передает ID и payload созданной сущности в тест.
     3. Гарантированно удаляет сущность после завершения теста.
     """
-    payload = test_data.default_entity()
+    payload = data_generator.default_entity()
     create_response = api_client.create_entity(payload)
 
     assert (
@@ -58,8 +58,8 @@ def created_entities_for_filter_test(api_client):
     """
     entities_to_delete = []
 
-    verified_payload = test_data.verified_entity()
-    unverified_payload = test_data.unverified_entity()
+    verified_payload = data_generator.verified_entity()
+    unverified_payload = data_generator.unverified_entity()
 
     create_verified_res = api_client.create_entity(verified_payload)
     verified_id = int(create_verified_res.text)
