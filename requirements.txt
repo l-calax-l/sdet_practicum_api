@@ -1,3 +1,4 @@
+allure-python-commons
 pytest
 requests
 pydantic
