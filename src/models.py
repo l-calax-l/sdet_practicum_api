@@ -1,12 +1,11 @@
-from typing import List, Optional
 from pydantic import BaseModel, Field
 
 
 class AdditionRequest(BaseModel):
     """Модель dto.AdditionRequest."""
 
-    additional_info: Optional[str] = "Дополнительные сведения"
-    additional_number: Optional[int] = 123
+    additional_info: str | None = "Дополнительные сведения"
+    additional_number: int | None = 123
 
 
 class AdditionResponse(BaseModel):
@@ -23,7 +22,7 @@ class EntityRequest(BaseModel):
     title: str = "Заголовок сущности по умолчанию"
     verified: bool = True
 
-    important_numbers: List[int] = Field(default_factory=list)
+    important_numbers: list[int] = Field(default_factory=list)
 
     addition: AdditionRequest = Field(default_factory=AdditionRequest)
 
@@ -34,7 +33,7 @@ class EntityResponse(BaseModel):
     id: int
     title: str
     verified: bool
-    important_numbers: List[int] = Field(default_factory=list)
+    important_numbers: list[int] = Field(default_factory=list)
     addition: AdditionResponse
 
 
@@ -44,4 +43,4 @@ class EntityListResponse(BaseModel):
     который возвращает словарь с ключом 'entity'.
     """
 
-    entity: List[EntityResponse]
+    entity: list[EntityResponse]
