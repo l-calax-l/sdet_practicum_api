@@ -1,4 +1,6 @@
 import allure
+import pytest
+from conftest import created_entity
 from src.api_client import ApiClient
 from src.models import EntityResponse, EntityListResponse
 from helpers import data_generator
@@ -31,7 +33,10 @@ class TestEntityApi:
 
     @allure.story("Получение списка сущностей")
     @allure.title("Позитивный тест: получение списка всех сущностей")
-    def test_get_all_entities(self, api_client: ApiClient):
+    def test_get_all_entities(self, api_client: ApiClient, created_entity):
+        entity_id = created_entity["id"]
+        payload = created_entity["payload"]
+
         with allure.step("Отправка GET-запроса на /getAll"):
             response = api_client.get_all_entities()
             assert (
@@ -43,6 +48,16 @@ class TestEntityApi:
             assert isinstance(
                 parsed_response.entity, list
             ), "Ключ 'entity' должен содержать список"
+
+        found_entities = [
+            e
+            for e in parsed_response.entity
+            if e.id == entity_id and e.title == payload.title
+        ]
+        assert len(found_entities) == 1, (
+            f"Ожидалось найти 1 сущность с ID={entity_id} и Title='{payload}', "
+            f"но найдено {len(found_entities)}."
+        )
 
     @allure.story("Обновление сущности")
     @allure.title("Позитивный тест: обновление и проверка сущности")
@@ -70,6 +85,7 @@ class TestEntityApi:
 
     @allure.story("Удаление сущности")
     @allure.title("Позитивный тест: удаление и проверка удаления сущности")
+    @pytest.mark.xfail(reason="Баг: API возвращает 500 вместо 404 после удаления")
     def test_delete_entity(self, api_client: ApiClient, created_entity):
         entity_id = created_entity["id"]
 
@@ -81,18 +97,9 @@ class TestEntityApi:
 
         with allure.step("Проверка, что сущность больше не доступна по GET"):
             get_response = api_client.get_entity(entity_id)
-
-            # TODO: БАГ! После удаления сущности GET запрос возвращает 500 вместо 404
             assert (
-                get_response.status_code >= 400
-            ), f"Ожидался код ошибки (4xx-5xx), но получен {get_response.status_code}"
-
-            if get_response.status_code != 404:
-                allure.attach(
-                    f"Обнаружен баг: GET после DELETE возвращает {get_response.status_code}. Response: {get_response.text}",
-                    name="BUG: Wrong status code after deletion",
-                    attachment_type=allure.attachment_type.TEXT,
-                )
+                get_response.status_code == 404
+            ), f"Ожидался код ошибки 404, но получен {get_response.status_code}"
 
     @allure.story("Получение списка сущностей")
     @allure.title(
