@@ -1,0 +1,19 @@
+{
+  "entity": [
+    {
+      "id": 2,
+      "title": "Новая тестовая сущность",
+      "verified": true,
+      "addition": {
+        "id": 2,
+        "additional_info": "Стандартная доп. информация",
+        "additional_number": 123
+      },
+      "important_numbers": [
+        10,
+        20,
+        30
+      ]
+    }
+  ]
+}

@@ -1,1 +1,0 @@
-Обнаружен баг: GET после DELETE возвращает 500. Response: {"error":"no rows in result set"}
